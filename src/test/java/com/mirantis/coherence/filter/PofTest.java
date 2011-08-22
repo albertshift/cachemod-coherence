@@ -27,12 +27,15 @@ public class PofTest extends TestCase {
     
     ConfigurablePofContext pofContext = new ConfigurablePofContext("coherence-filter-pof-config.xml");    
     
-    CacheEntry cacheEntry = TestUtils.createCacheEntry("responseText");
+    CacheEntry cacheEntry = TestUtils.createCacheEntry("hello");
   
-    byte[] contentPof = TestUtils.serializeByPof(cacheEntry, pofContext);
-    CacheEntry cacheEntryCheck = (CacheEntry) TestUtils.deserializeByPof(contentPof, pofContext);
+    byte[] entryPof = TestUtils.serializeByPof(cacheEntry, pofContext);
+    System.out.println("POF len = " + entryPof.length);
+    CacheEntry cacheEntryCheck = (CacheEntry) TestUtils.deserializeByPof(entryPof, pofContext);
     assertEquals(cacheEntry, cacheEntryCheck);
 
+    byte[] blob = TestUtils.serializeByJava(cacheEntry);
+    System.out.println("Java len = " + blob.length);
   }
  
 

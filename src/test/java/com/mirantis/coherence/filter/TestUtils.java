@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Locale;
 
+import junit.framework.TestCase;
+
 import com.mirantis.cachemod.filter.CacheEntry;
 import com.mirantis.cachemod.filter.CoherenceCacheEntry;
 import com.tangosol.io.ByteArrayReadBuffer;
@@ -52,16 +54,26 @@ public class TestUtils {
     return reader.readObject(0);
   }
   
+  public static void assertEquals(CacheEntry cacheEntry, CacheEntry cacheEntryCheck) throws Exception {
+    TestCase.assertEquals(cacheEntry.getContentEncoding(), cacheEntryCheck.getContentEncoding());
+    TestCase.assertEquals(cacheEntry.getContentType(), cacheEntryCheck.getContentType());
+    TestCase.assertEquals(cacheEntry.getExpires(), cacheEntryCheck.getExpires());
+    TestCase.assertEquals(cacheEntry.getLastModified(), cacheEntryCheck.getLastModified());
+    TestCase.assertEquals(cacheEntry.getMaxAge(), cacheEntryCheck.getMaxAge());
+    TestCase.assertEquals(cacheEntry.getContent().length, cacheEntryCheck.getContent().length);
+  }
+  
   public static CacheEntry createCacheEntry(String responseText) throws IOException {
-    CacheEntry content = new CoherenceCacheEntry();
-    content.setContentEncoding("UTF-8");
-    content.setContentType("text/html");
-    content.setExpires(-1);
-    content.setLastModified(System.currentTimeMillis());
-    content.setLocale(new Locale("en_US"));
-    content.setMaxAge(-1);
-    content.setContent("content".getBytes());
-    return content;
+    CacheEntry entry = new CoherenceCacheEntry();
+    entry.setKey("index.html");
+    entry.setContentEncoding("UTF-8");
+    entry.setContentType("text/html");
+    entry.setExpires(-1);
+    entry.setLastModified(System.currentTimeMillis());
+    entry.setLocale(new Locale("en_US"));
+    entry.setMaxAge(-1);
+    entry.setContent("content".getBytes());
+    return entry;
   }
   
 
