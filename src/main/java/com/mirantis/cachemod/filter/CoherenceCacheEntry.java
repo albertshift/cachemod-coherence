@@ -29,7 +29,6 @@ public class CoherenceCacheEntry extends CacheEntry implements PortableObject {
   
   @Override
   public void readExternal(PofReader reader) throws IOException {
-    key = reader.readString(0);
     userData = reader.readObject(1);
     String language = reader.readString(2);
     String country = reader.readString(3);
@@ -51,7 +50,6 @@ public class CoherenceCacheEntry extends CacheEntry implements PortableObject {
 
   @Override
   public void writeExternal(PofWriter writer) throws IOException {
-    writer.writeString(0, key);
     writer.writeObject(1, userData); 
     writer.writeString(2, locale != null ? locale.getLanguage() : null);
     writer.writeString(3, locale != null ? locale.getCountry() : null);
