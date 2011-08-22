@@ -29,9 +29,9 @@ public class CoherenceCacheEntry extends CacheEntry implements PortableObject {
   
   @Override
   public void readExternal(PofReader reader) throws IOException {
-    userData = reader.readObject(1);
-    String language = reader.readString(2);
-    String country = reader.readString(3);
+    userData = reader.readObject(0);
+    String language = reader.readString(1);
+    String country = reader.readString(2);
     if (language != null) {
       try {
         locale = new Locale(language, country);
@@ -40,25 +40,25 @@ public class CoherenceCacheEntry extends CacheEntry implements PortableObject {
         // do not log
       }
     }
-    expires = reader.readLong(4);
-    lastModified = reader.readLong(5);
-    maxAge = reader.readLong(6);
-    contentEncoding = reader.readString(7);
-    contentType = reader.readString(8);
-    content = reader.readByteArray(9);
+    expires = reader.readLong(3);
+    lastModified = reader.readLong(4);
+    maxAge = reader.readLong(5);
+    contentEncoding = reader.readString(6);
+    contentType = reader.readString(7);
+    content = reader.readByteArray(8);
   }
 
   @Override
   public void writeExternal(PofWriter writer) throws IOException {
-    writer.writeObject(1, userData); 
-    writer.writeString(2, locale != null ? locale.getLanguage() : null);
-    writer.writeString(3, locale != null ? locale.getCountry() : null);
-    writer.writeLong(4, expires);
-    writer.writeLong(5, lastModified);
-    writer.writeLong(6, maxAge);    
-    writer.writeString(7, contentEncoding);
-    writer.writeString(8, contentType);
-    writer.writeByteArray(9, content);
+    writer.writeObject(0, userData); 
+    writer.writeString(1, locale != null ? locale.getLanguage() : null);
+    writer.writeString(2, locale != null ? locale.getCountry() : null);
+    writer.writeLong(3, expires);
+    writer.writeLong(4, lastModified);
+    writer.writeLong(5, maxAge);    
+    writer.writeString(6, contentEncoding);
+    writer.writeString(7, contentType);
+    writer.writeByteArray(8, content);
   }
 
 }
