@@ -60,4 +60,9 @@ public class CoherenceCacheProvider implements CacheProvider {
     return cache;
   }
   
+
+  @Override
+  public int size() {
+    return cache.size();
+  }
 }
